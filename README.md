@@ -6,5 +6,5 @@
 ```bash
 apt-get install autossh
 ssh-keygen
-ssh-copy-id buhuipao@139.199.169.47
+ssh-copy-id username@server_ip
 ```
