@@ -3,8 +3,8 @@
 
 树莓派安装autossh,并且生成公钥私钥
 
-'''
+```bash
 apt-get install autossh
 ssh-keygen
 ssh-copy-id buhuipao@139.199.169.47
-'''
+```
