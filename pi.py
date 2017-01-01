@@ -1,5 +1,16 @@
 # _*_ coding: utf-8 _*_
 
+'''
+以树莓派为服务端，把H.264编码视频流放到8000tcp端口, 利用七牛的pili库，生成推流地址，
+很无耻fork出子进程，python调用shell利用之前编译好的FFMPEG连接8000端口,
+推流到七牛的pili平台，具体七牛的pili平台设置见官方文档
+
+ffmpeg的编译参考官网: https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu
+七牛的pili推流文档：https://github.com/pili-engineering/pili-sdk-python
+树莓派摄像头的python库文档：http://picamera.readthedocs.io/en/release-1.12/ 及GitHub: https://github.com/waveform80/picamera
+
+多说一句，再好的教程都比不过官方文档
+'''
 import socket
 import time
 import picamera
