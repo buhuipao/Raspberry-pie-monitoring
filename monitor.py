@@ -19,7 +19,8 @@ def monitor():
         return
     bypy = ByPy()
     print(files[-1])
-    bypy.upload(files[-1])
+    remote_path = '-'.join(files[-1].split('-')[:3]) + '/' + files[-1]
+    bypy.upload(files[-1], remote_path)
 
     # 如果两幅图指纹不同, 发送邮件和短信，否则只保留最后一张图片
     if phash.imgs(files[-2], files[-1]):
