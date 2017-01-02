@@ -45,7 +45,7 @@ def p_hash(img, shape=True):
     avg_list = ['0' if i < avg else '1' for i in img_list]
 
     # 得到16进制哈希值
-    print(''.join(['%x' % int(''.join(avg_list[x:x+4]), 2) for x in range(0, len(avg_list), 4)]))
+    # print(''.join(['%x' % int(''.join(avg_list[x:x+4]), 2) for x in range(0, len(avg_list), 4)]))
     return avg_list
 
 
@@ -73,7 +73,7 @@ def imgs(img1, img2):
     result = same_shape(img1, img2)
     img1_list = p_hash(img1, result)
     img2_list = p_hash(img2, result)
-    print(diff(img1_list, img2_list))
+    # print(diff(img1_list, img2_list))
     return diff(img1_list, img2_list)
 
 if __name__ == '__main__':
