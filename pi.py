@@ -46,7 +46,8 @@ def Pi():
         try:
             camera.start_recording(connection, format='h264')
             while 1:
-                camera.wait_recording(5)
+                camera.wait_recording(10)
+                camera.capture(time.strftime('%Y-%m-%d %H:%m:%S', time.localtime())+'.jpeg', use_video_port=True)
             camera.stop_recording()
         finally:
             connection.close()
@@ -63,7 +64,7 @@ def main():
         time_title = "fontfile=/usr/share/fonts/truetype/freefont/FreeMonoBold.ttf:x=w-tw:fontcolor=white:fontsize=30:text='%{localtime\:%X}'"
         cmd = 'ffmpeg -i tcp://127.0.0.1:8000 -vf vflip -r 36 -codec copy -threads 8 -preset ultrafast  -an -b:v 1000k -vcodec libx264 -s 854x480 -vf drawtext="' + time_title + '" -f flv "' + url + '"'
         print(cmd)
-        time.sleep(1)
+        time.sleep(0.1)
         os.system(cmd)
         os._exit(0)
     os.waitpid(child, 0)
