@@ -48,13 +48,15 @@ def send_sms():
         print(e)
 
 
-def send_notice():
-    pattern = re.compile(r'png')
+def send_notice(imgs):
+    '''
+    pattern = re.compile(r'jpeg')
     files = [f for f in os.listdir('.') if re.search(pattern, f.split('.')[-1])]
     if len(files) < 2:
         return
     else:
         imgs = files[-2:]
+    '''
     send_sms()
     send_mail(imgs)
 
