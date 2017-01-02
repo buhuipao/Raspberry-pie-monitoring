@@ -56,7 +56,9 @@ def diff(img1_list, img2_list):
     img2_list = map(int, img2_list)
     matV = np.mat([img1_list, img2_list])
     smstr = np.nonzero(matV[0]-matV[1])
-    return False if np.shape(smstr[0])[0] <= 5 else True
+    # 巨坑! 相同的库Mac和Linux的结果不太一样, 注释的是Mac下的汉明距离
+    # return False if np.shape(smstr[0])[0] <= 5 else True
+    return False if np.shape(smstr[0])[1] <= 5 else True
 
 
 # 判断图片的形状是否相似, 即判断长宽比值
