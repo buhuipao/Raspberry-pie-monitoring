@@ -35,7 +35,7 @@ def gen_url():
 
 def Pi():
     camera = picamera.PiCamera()
-    camera.resolution = (854, 480)
+    camera.resolution = (860, 480)
     camera.framerate = 36
     server_socket = socket.socket()
     server_socket.bind(('0.0.0.0', 8000))
@@ -62,7 +62,7 @@ def main():
     else:
         url = gen_url()
         time_title = "fontfile=/usr/share/fonts/truetype/freefont/FreeMonoBold.ttf:x=w-tw:fontcolor=white:fontsize=30:text='%{localtime\:%X}'"
-        cmd = 'ffmpeg -i tcp://127.0.0.1:8000 -vf vflip -r 36 -codec copy -threads 8 -preset ultrafast  -an -b:v 1000k -vcodec libx264 -s 854x480 -vf drawtext="' + time_title + '" -f flv "' + url + '"'
+        cmd = 'ffmpeg -i tcp://127.0.0.1:8000 -vf vflip -r 36 -codec copy -threads 8 -preset ultrafast  -an -b:v 1000k -vcodec libx264 -s 860x480 -vf drawtext="' + time_title + '" -f flv "' + url + '"'
         print(cmd)
         time.sleep(0.1)
         os.system(cmd)
