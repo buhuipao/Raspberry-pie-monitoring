@@ -3,7 +3,6 @@
 '''
 演绎网上别人的脚本，加了些条件判断，满足基本图片相似判断
 判断相同形状的图片采用精确匹配(根据形状进行切割获取高能区)，如是不同形状则采用模糊匹配(8*8)
-当然有可能会出现撞图现象^_^，但你是为了找到相同图片而不是为了撞图不是吗?
 '''
 
 import cv2
@@ -17,6 +16,9 @@ def p_hash(img, shape=True):
     # 加载并调整图片为高x宽灰度图片
     img = cv2.imread(img, cv2.IMREAD_GRAYSCALE)
     h, w = (48, int(48*img.shape[1]/img.shape[0])) if shape else (48, 48)
+    # 宽度必须为偶数，否则Dct变换会报错
+    if w % 2 != 0:
+        w = w - 1
 
     # 三个参数分别为源，图片的x&y(也就是宽&高), 缩小处理方法
     img = cv2.resize(img, (w, h), interpolation=cv2.INTER_CUBIC)
