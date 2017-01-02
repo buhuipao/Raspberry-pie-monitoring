@@ -6,8 +6,8 @@
 
 from baidu import ByPy
 import os
-import phash
 import notice
+import phash
 import time
 
 def monitor():
@@ -19,15 +19,16 @@ def monitor():
     if len(files) < 2:
         return
     bypy = ByPy()
-    bypy.upload(files[1])
+    bypy.upload(files[-1])
 
-    # 如果两幅图没有什么不同, 删除第一幅图
-    if not phash.imgs(files[0], files[1]):
+    # 如果两幅图指纹不同, 发送邮件和短信，否则只保留最后一张图片
+    if phash.imgs(files[-2], files[-1]):
+        notice.send_notice()
+    else:
         print('Pictures are same!')
-        os.remove(files[0])
+        os.remove(files[:-1])
         print time.time()-start
         return
-    notice.send_notice()
 
 if __name__ == '__main__':
     monitor()
