@@ -22,14 +22,12 @@ def monitor():
     remote_path = '-'.join(files[-1].split('-')[:3]) + '/' + files[-1]
     bypy.upload(files[-1], remote_path)
 
-    # 如果两幅图指纹不同, 发送邮件和短信，否则只保留最后一张图片
+    # 如果两幅图指纹不同, 发送邮件和短信，并只保留最后一张图片
     if phash.imgs(files[-2], files[-1]):
         notice.send_notice(files[-2:])
-    else:
-        print('Pictures are same!')
-        for img in files[:-1]:
-            os.remove(img)
-        return
+    for img in files[:-1]:
+        os.remove(img)
+    return
 
 if __name__ == '__main__':
     while 1:
