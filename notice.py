@@ -60,5 +60,25 @@ def send_notice(imgs):
     send_sms()
     send_mail(imgs)
 
+
+def send_voice():
+    url = 'gw.api.taobao.com'
+    appkey = 'your_app_key'
+    secret = 'your_app_secret'
+    port = 80
+    req = top.api.AlibabaAliqinFcVoiceNumSinglecallRequest(url, port)
+    req.set_app_info(top.appinfo(appkey, secret))
+
+    req.format = "json"
+    req.extend = "12345"
+    req.called_num = "13700000000"
+    req.called_show_num = "4001112222"
+    req.voice_code = "Your voice id"
+    try:
+        resp = req.getResponse()
+        print(resp)
+    except Exception as e:
+        print(e)
+
 if __name__ == '__main__':
     send_notice()
