@@ -1358,10 +1358,11 @@ class ByPy(object):
 					with io.open(self.__certspath, 'wb') as f:
 						f.write(resp.read())
 				except IOError as ex:
-					perr("Fail download CA Certs to '{}'.\n{}".format(
-						self.__certspath, formatex(ex)))
+					# perr("Fail download CA Certs to '{}'.\n{}".format(
+					# 	self.__certspath, formatex(ex)))
 
-					result = EDownloadCerts
+					pass
+					# result = EDownloadCerts
 
 		return result
 
