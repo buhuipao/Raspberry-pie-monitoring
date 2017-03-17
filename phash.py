@@ -16,9 +16,6 @@ def p_hash(img, shape=True):
     # 加载并调整图片为高x宽灰度图片
     img = cv2.imread(img, cv2.IMREAD_GRAYSCALE)
     h, w = (48, int(48*img.shape[1]/img.shape[0])) if shape else (48, 48)
-    # 宽度必须为偶数，否则Dct变换会报错
-    if w % 2 != 0:
-        w = w - 1
 
     # 三个参数分别为源，图片的x&y(也就是宽&高), 缩小处理方法
     img = cv2.resize(img, (w, h), interpolation=cv2.INTER_CUBIC)
@@ -45,7 +42,7 @@ def p_hash(img, shape=True):
     avg_list = ['0' if i < avg else '1' for i in img_list]
 
     # 得到16进制哈希值
-    # print(''.join(['%x' % int(''.join(avg_list[x:x+4]), 2) for x in range(0, len(avg_list), 4)]))
+    print(''.join(['%x' % int(''.join(avg_list[x:x+4]), 2) for x in range(0, len(avg_list), 4)]))
     return avg_list
 
 
@@ -56,9 +53,10 @@ def diff(img1_list, img2_list):
     img2_list = map(int, img2_list)
     matV = np.mat([img1_list, img2_list])
     smstr = np.nonzero(matV[0]-matV[1])
-    # 巨坑! 相同的库Mac和Linux的结果不太一样, 注释的是Mac下的汉明距离
+    # 巨坑! 相同的库Mac和Linux的结果不太一样, 比如Mac下的汉明距离
     # return False if np.shape(smstr[0])[0] <= 5 else True
-    return False if np.shape(smstr[0])[1] <= 5 else True
+    print np.shape(smstr[0])[1]
+    return False if np.shape(smstr[0])[1] < 20 else True
 
 
 # 判断图片的形状是否相似, 即判断长宽比值
@@ -70,13 +68,12 @@ def same_shape(img1, img2):
     return True if shape1 == shape2 else False
 
 
-def imgs(img1, img2):
+def imgs_diff(img1, img2):
     # 先判断图片的形状是否相似
     result = same_shape(img1, img2)
     img1_list = p_hash(img1, result)
     img2_list = p_hash(img2, result)
-    # print(diff(img1_list, img2_list))
     return diff(img1_list, img2_list)
 
 if __name__ == '__main__':
-    imgs(sys.argv[1], sys.argv[2])
+    imgs_diff(sys.argv[1], sys.argv[2])
