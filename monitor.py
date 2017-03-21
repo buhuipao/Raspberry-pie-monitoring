@@ -58,7 +58,8 @@ def run():
         count = monitor(count)
 	print(type(count), count)
         used = time.time() - start
-        time.sleep(10-used) if used <= 10 else 0
+        if used <= 10:
+            time.sleep(10-used)
 	
 if __name__ == '__main__':
     run()
