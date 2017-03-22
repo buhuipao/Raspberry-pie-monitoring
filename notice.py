@@ -8,6 +8,11 @@
 import requests
 import top
 
+url = 'gw.api.taobao.com'
+port = 80
+appkey = 'xxxxxxxx'
+secret = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+
 
 def send_mail(imglist):
     '''
@@ -23,16 +28,12 @@ def send_mail(imglist):
                "subject": "来自树莓派报警",
                "html": html_tmp}
     try:
-        r = requests.post(url, auth=auth, files=imgs, data=payload)
+        requests.post(url, auth=auth, files=imgs, data=payload)
     except:
-	pass
+        pass
 
 
 def send_sms():
-    url = 'gw.api.taobao.com'
-    appkey = 'xxxxxxxx'
-    secret = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-    port = 80
     req = top.api.AlibabaAliqinFcSmsNumSendRequest(url, port)
     req.set_app_info(top.appinfo(appkey, secret))
 
@@ -44,10 +45,21 @@ def send_sms():
     req.sms_template_code = "SMS_37695056"
 
     try:
-        r = req.getResponse()
+        req.getResponse()
     except:
-	pass
+        pass
 
 
 def send_voice():
-    pass
+    req = top.api.AlibabaAliqinFcVoiceNumSinglecallRequest(url, port)
+    req.set_app_info(top.appinfo(appkey, secret))
+
+    req.extend = ""
+    req.called_num = "131xxxxxxxx"
+    req.called_show_num = "01053912806"
+
+    req.voice_code = "c5473658-73f4-4831-8f61-e1eb468c8230.wav"
+    try:
+        req.getResponse()
+    except Exception:
+        pass
