@@ -3,13 +3,23 @@
 '''
 用bypy库手动鉴权,文档地址：https://github.com/houtianze/bypy
 '''
-from baidu import ByPy
+# from baidu import ByPy
+from baidupcsapi import PCS
 import os
 import notice
 import phash
 import time
 # from pdb import set_trace
 
+
+def upload(file):
+    pcs = PCS('username','userpwd')
+    remote_path = '/apps/raspi/' + '-'.join(file.split('-')[:3])
+    with open('file', 'rb') as f:
+        try:
+            pcs.upload(remote_path, f, file)
+        except:
+            pass
 
 def monitor(count):
     '''
@@ -22,6 +32,8 @@ def monitor(count):
     '''
 
     files = sorted([f for f in os.listdir('.') if f.find('jpeg') != -1])
+    upload(files[-1])
+    '''
     if len(files) < 2:
         return min(count, 5)
     remote_path = '-'.join(files[-1].split('-')[:3]) + '/' + files[-1]
@@ -30,6 +42,7 @@ def monitor(count):
         bypy.upload(files[-1], remote_path)
     except:
         pass
+    '''
 
     # 如果两幅图指纹不同, 发送邮件和短信, 最后只保留最后一张图片
     print('Start diff imges...')

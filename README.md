@@ -1,4 +1,25 @@
-# 这是我的毕业设计，树莓派寝室安防监控
+# 这是我的毕业设计，树莓派寝室安防监控, 目录结构即模块说明
+```.
+├── Pi.py                   #树莓派摄像头及监控启动
+├── README.md
+├── baidu.py                #文件上传至百度云盘
+├── mail.html               #
+├── monitor.py
+├── notice.py
+├── phash.py
+├── test
+├── top
+│   ├── __init__.py
+│   ├── __init__.pyc
+│   └── api
+├── true_notice.py
+└── venv
+    ├── bin
+    ├── include
+    ├── lib
+    ├── pip-selfcheck.json
+    └── share
+```
 ## 第一步: 用autossh打通内网控制障碍
 
 树莓派安装autossh,并且生成公钥私钥
@@ -22,3 +43,6 @@ sudo update-rc.d autossh defaults 90
 ssh -p 19999 pi@localhost
 ```
 ## 第二步：安装必要的软件
+`pass`
+
+
